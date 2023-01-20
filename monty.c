@@ -31,7 +31,7 @@ void push(stack_t **stack, unsigned int line_num, int n)
 {
 	stack_t *new, *h = *stack;
 
-	if ((stack == NULL) || (n % 1 != 0) || (n == NULL))
+	if ((stack == NULL) || (n % 1 != 0))
 	{
 		fprintf(stderr, "L%d: usage: push integer", line_num);
 		exit(EXIT_FAILURE);
