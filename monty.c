@@ -29,41 +29,24 @@ void pall(stack_t **stack, unsigned int line_num)
 
 void push(stack_t **stack, unsigned int line_num, int n)
 {
-	stack_t *new, *temp;
+	stack_t *new, *h = *stack;
 
-	temp = (*stack)->next;
+	if ((stack == NULL) || (n % 1 != 0))
+	{
+		fprintf(stderr, "L%d: usage: push integer", line_num);
+		exit(EXIT_FAILURE);
+	}
 	new = malloc(sizeof(stack_t));
-
 	if (new == NULL)
-	{
-		malloc_error();
-		return;
-	}
-	if (op_tokens[1] == NULL ||
-			(atoi(op_tokens[1]) == 0 && op_tokens[1][0] != '0'))
-	{
-		push_error(line_number);
-		return;
-	}
-
-	new->n = atoi(op_tokens[1]);
-	if (check_mode(stack) == STACK)
-	{
-		new->next = temp;
-		new->prev = *stack;
-		(*stack)->next = new;
-	}
-	if (check_mode(stack) == QUEUE)
-	{
-		while (temp->next != NULL)
-		{
-			temp = temp->next;
-		}
-		temp->next = new;
-		new->next = NULL;
-		new->prev = temp;
-	}
+		exit(EXIT_FAILURE);
+	new->prev = NULL;
+	new->n = n;
+	new->next = *stack;
+	if (*stack)
+		h->prev = new;
+	*stack = new;
 }
+
 
 
 /**
